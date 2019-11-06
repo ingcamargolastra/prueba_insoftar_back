@@ -103,6 +103,10 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $usuario = Usuario::find($id);
+        if(!$usuario){
+            return ["success"=>false, "error"=>"El usuario no existe"];    
+        }
+        return ["success"=>true];
     }
 }
