@@ -5,6 +5,7 @@ namespace PruebaInsoftar\Http\Controllers;
 use Illuminate\Http\Request;
 use PruebaInsoftar\Usuario;
 use PruebaInsoftar\Http\Resources\UsuarioCollection;
+use PruebaInsoftar\Http\Requests\StoreUsuarioRequest;
 
 class UsuarioController extends Controller
 {
@@ -34,9 +35,19 @@ class UsuarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUsuarioRequest $request)
     {
-        //
+        $usuario = new Usuario();
+        $usuario->nombres = $request->nombres;
+        $usuario->apellidos  = $request->apellidos;
+        $usuario->cedula  = $request->cedula;
+        $usuario->telefono  = $request->telefono;
+        $usuario->correo  = $request->correo;
+        $usuario->save();
+
+        
+        return ["success"=>true,"usuario"=>$usuario];
+        
     }
 
     /**
