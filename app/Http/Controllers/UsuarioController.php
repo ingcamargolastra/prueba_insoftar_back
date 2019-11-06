@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use PruebaInsoftar\Usuario;
 use PruebaInsoftar\Http\Resources\UsuarioCollection;
 use PruebaInsoftar\Http\Requests\StoreUsuarioRequest;
+use PruebaInsoftar\Http\Requests\UpdateUsuarioRequest;
 
 class UsuarioController extends Controller
 {
@@ -79,9 +80,19 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUsuarioRequest $request, $id)
     {
-        //
+        
+        $usuario = Usuario::find($request->id);
+        $usuario->nombres = $request->nombres;
+        $usuario->apellidos  = $request->apellidos;
+        $usuario->cedula  = $request->cedula;
+        $usuario->telefono  = $request->telefono;
+        $usuario->correo  = $request->correo;
+        $usuario->save();
+
+        
+        return ["success"=>true,"usuario"=>$usuario];
     }
 
     /**
